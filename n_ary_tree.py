@@ -29,6 +29,21 @@ class N_ary_Tree:
 				return return_node
 		return None	
 
+
+	def depth(self, key):
+		node = self.find_node(self.root, key)
+		if not(node):
+			raise NodeNotFoundException('No element was found with the informed parent key.')
+		return self.max_depth(node)
+
+	def max_depth(self, node):
+		if not(node.children):
+			return 0
+		children_max_depth = []
+		for child in node.children:
+			children_max_depth.append(self.max_depth(child))
+		return 1 + max(children_max_depth)
+
 	def add(self, new_key, parent_key=None):
 		new_node = Node(new_key)
 		if parent_key == None:
@@ -75,3 +90,4 @@ if __name__ == "__main__":
 
 	print 'N-ary tree size:', tree.lenght()
 	print tree
+	print tree.depth(11)
